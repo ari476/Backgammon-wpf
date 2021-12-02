@@ -1,0 +1,47 @@
+﻿<Window x:Class="Shesh_Besh.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Shesh_Besh"
+        mc:Ignorable="d"
+       Height="300" Width="300" WindowState="Maximized" WindowStyle="None"
+         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Chocolate"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" Duration="0:0:0.2" To="70" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="FontSize" Duration="0:0:0.2" To="50" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="MenuGrid" Background="#FF3E9ADA">
+     
+
+        <StackPanel Name="spMenu" HorizontalAlignment="Center"   MouseDown="lbl_MouseDown" VerticalAlignment="Center" >
+            <Label Name="lbl_StartGame" Content="Start new game" Margin="0,5,0,5" FontFamily="Tw Cen MT" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <Label Name="lbl_HowToPlay" Content="Instructions" Margin="0,5,0,5" FontFamily="Tw Cen MT" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+            <Label Name="lbl_About" Content="About" Margin="0,5,0,5" FontFamily="Tw Cen MT" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <Label Name="lbl_Exit" Content="Exit"  Margin="0,5,0,5" FontFamily="Tw Cen MT" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

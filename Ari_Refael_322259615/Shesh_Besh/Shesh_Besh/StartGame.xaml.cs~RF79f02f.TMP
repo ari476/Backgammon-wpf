@@ -1,0 +1,1242 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Shesh_Besh
+{
+    /// <summary>
+    /// Interaction logic for StartGame.xaml
+    /// </summary>
+    public partial class StartGame : Window
+    {
+        static Model3D[] OutR = new Model3D[15];
+        static Model3D[] OutG = new Model3D[15];
+        static Model3D[] RedPlayer = new Model3D[18];                                                               // מערכים של אוביקטים מסוג מודלי של כל הכלים
+        static Model3D[] GrayPlayer = new Model3D[18];
+        static Model3D[] EatRed = new Model3D[15];
+        static Model3D[] EatGray = new Model3D[15];
+        static Model3D md;
+        static int firsrT = 1, NCountOutSideR = 15, NCountOutSideG = 15;
+        static bool fDice = false, sDice = false, isCople = false, NoPossibleM = false, NowOEat;
+        static Col[] AllOfCol = new Col[26]; //AllOfCol[0] ,AllOfCol[25]- not using (for eat)
+        static string turn = "gray"; static int f, s, redS, grayS, Count = 4, prev = 1, col, countEatR = 0, countEatG = 0;
+        static Random reg = new Random();
+        // static Label L1 = new Label(), L2 = new Label(), L3 = new Label();
+        // static Label[] L = new Label[25];
+        static bool ifMove;
+
+        public StartGame()
+        {
+            InitializeComponent();
+        }
+        private void on_OpenScreen(object sender, RoutedEventArgs e)
+        {
+            //for (int i = 1; i < 25; i++)
+            //{
+            //    L[i] = new Label();
+            //    L[i].Foreground = new SolidColorBrush(Colors.White);
+            //    L[i].FontSize = 24;
+            //    ma.Children.Add(L[i]);
+            //    Show(L[i], TopCanvas(i), LeftCanvas(i));
+            //}
+
+            //L[1].Content = "6";
+
+
+            //ma.Children.Add(L3);
+            //L3.Content = "1";
+            //Show(L2,445,340);
+
+            //Show(L3,10,2);
+            Transform3DGroup tGroup = new Transform3DGroup();                                                                                       // יצירת כל הכלים והוספתם לסצנה
+
+            for (int i = 0; i < 18; i++)
+            {
+
+                GrayPlayer[i] = (new GeometryModel3D((MeshGeometry3D)this.Resources["sesbes"], (Material)this.Resources["gray"])).Clone();
+                RedPlayer[i] = (new GeometryModel3D((MeshGeometry3D)this.Resources["sesbes"], (Material)this.Resources["red"])).Clone();
+
+                Scene.Children.Add(GrayPlayer[i]);
+                Scene.Children.Add(RedPlayer[i]);
+
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(Xto(1), 0, Zto(1, i)));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                GrayPlayer[i].Transform = tGroup;
+
+                if (AllOfCol[1] == null)
+                    AllOfCol[1] = new Col(GrayPlayer[i], 1, "gray");
+                else
+                    AllOfCol[1].Add(GrayPlayer[i]);
+
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(6.85, 0, -7.1 + i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                RedPlayer[i].Transform = tGroup;
+
+                if (AllOfCol[24] == null)
+                    AllOfCol[24] = new Col(RedPlayer[i], 24, "red");
+                else
+                    AllOfCol[24].Add(RedPlayer[i]);
+
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(1.25, 0, 7.1 - i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                RedPlayer[i + 2].Transform = tGroup;
+
+                if (AllOfCol[6] == null)
+                    AllOfCol[6] = new Col(RedPlayer[i + 2], 6, "red");
+                else
+                    AllOfCol[6].Add(RedPlayer[i + 2]);
+
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(1.25, 0, -7.1 + i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                GrayPlayer[i + 2].Transform = tGroup;
+
+                if (AllOfCol[19] == null)
+                    AllOfCol[19] = new Col(GrayPlayer[i + 2], 19, "gray");
+                else
+                    AllOfCol[19].Add(GrayPlayer[i + 2]);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(-2.37, 0, 7.1 - i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                RedPlayer[i + 7].Transform = tGroup;
+
+                if (AllOfCol[8] == null)
+                    AllOfCol[8] = new Col(RedPlayer[i + 7], 8, "red");
+                else
+                    AllOfCol[8].Add(RedPlayer[i + 7]);
+
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(-2.37, 0, -7.1 + i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                GrayPlayer[i + 7].Transform = tGroup;
+
+                if (AllOfCol[17] == null)
+                    AllOfCol[17] = new Col(GrayPlayer[i + 7], 17, "gray");
+                else
+                    AllOfCol[17].Add(GrayPlayer[i + 7]);
+
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(-6.85, 0, 7.1 - i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                GrayPlayer[i + 10].Transform = tGroup;
+
+                if (AllOfCol[12] == null)
+                    AllOfCol[12] = new Col(GrayPlayer[i + 10], 12, "gray");
+                else
+                    AllOfCol[12].Add(GrayPlayer[i + 10]);
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(-6.85, 0, -7.1 + i));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                RedPlayer[i + 10].Transform = tGroup;
+
+                if (AllOfCol[13] == null)
+                    AllOfCol[13] = new Col(RedPlayer[i + 10], 13, "red");
+                else
+                    AllOfCol[13].Add(RedPlayer[i + 10]);
+            }
+
+            for (int i = 15; i < 18; i++)
+            {
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(15, 0, Zto(1, 0)));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                GrayPlayer[i].Transform = tGroup;
+
+                tGroup = new Transform3DGroup();
+                tGroup.Children.Add(new TranslateTransform3D(15, 0, Zto(1, 0)));
+                tGroup.Children.Add(new ScaleTransform3D(.8, 1.5, .8));
+                RedPlayer[i].Transform = tGroup;
+
+            }
+
+
+
+        }
+
+        private void onMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point location = e.GetPosition(MainViewport3D);
+            RayMeshGeometry3DHitTestResult MeshHitResult = (RayMeshGeometry3DHitTestResult)VisualTreeHelper.HitTest(MainViewport3D, location);
+            bool con = false;
+            col = WhishCol(MeshHitResult);  //העמודה בלוח שנלחצה
+            NowOEat = false;
+            if (numbers.Content != null && firsrT == -1 && f != 0)
+            {
+                if (turn == "red" && countEatR != 0)
+                {
+                    if (Count % 2 == 0 && col == 0)
+                    {
+                        MooveY(EatRed[countEatR - 1], 0.5, 0);
+                        md = EatRed[countEatR - 1];
+                        Count--; prev = col; return;
+                    }
+                    else
+                    {
+
+                        if (prev == col || prev == 25 && col == 0)
+                        {
+                            MooveY(EatRed[countEatR - 1], 0.1, 0);
+                            Count++;
+                            return;
+                        }
+
+                        else if (Count % 2 != 0)
+                        { RedOut(); }
+
+
+
+                    }
+
+                }
+                if (turn == "gray" && countEatG != 0)
+                {
+                    if (Count % 2 == 0 && col == 0)
+                    {
+                        MooveY(EatGray[countEatG - 1], 0.5, 0);
+                        md = EatGray[countEatG - 1];
+                        Count--; prev = col; return;
+                    }
+                    else
+                    {
+
+                        if (prev == col)
+                        {
+                            MooveY(EatGray[countEatG - 1], 0.1, 0);
+                            Count++;
+                            return;
+                        }
+
+                        else if (Count % 2 != 0)
+                        {
+                            GrayOut();
+                        }
+                    }
+                }
+
+                if (AllOfCol[col] != null && Count % 2 == 0 && Count != 0)
+                    if (AllOfCol[col].GetColor() == turn)
+                    {
+                        if (turn == "red")
+                            con = (countEatR == 0);
+                        else
+                            con = (countEatG == 0);
+                    }
+                if (con && prev != 25 && prev != 0 && Count != 0 || con && !NowOEat)
+                {
+                    MooveY(AllOfCol[col].GetModel3D(), 0.5, 0);
+                    prev = col;
+                    md = AllOfCol[prev].GetModel3D();
+                    Count--; return;
+                }
+                bool con1 = false;
+                if (Count % 2 != 0 && Count != 0)
+                {
+                    if (turn == "red")
+                        con1 = (countEatR == 0);
+                    else
+                        con1 = (countEatG == 0);
+
+                    if (prev == col && con1)
+                    {
+                        MooveY(AllOfCol[col].GetModel3D(), 0, 0);
+                        Count++;
+                        return;
+                    }
+                    else if (con1)
+                    {
+                        if (turn == "red")
+                            redM();
+                        else
+                            grayM();
+                    }
+                }
+
+
+
+                if (Count == 0 || NoPossibleM)
+                {
+                    if (NoPossibleM)
+                        MessageBox.Show("There are no possible moves", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Count = 4; fDice = false; sDice = false; numbers.Content = ""; f = 0; s = 0;
+                    if (turn == "red")
+                    { turn = "gray"; curent.Content = "gray"; curent.Foreground = new SolidColorBrush(Colors.Gray); }
+                    else
+                    { turn = "red"; curent.Content = "red"; curent.Foreground = new SolidColorBrush(Colors.Red); }
+                    //         rool.IsEnabled = true;
+                    NoPossibleM = false;
+                }
+            }
+        }
+
+        private void rool_Click(object sender, RoutedEventArgs e)
+        {
+            if (firsrT == 1 || firsrT == 2)
+            {
+                if (firsrT == 1)
+                {
+                    redS = reg.Next(1, 7);
+                    numbers.Content = redS;
+                }
+                else
+                {
+                    grayS = reg.Next(1, 7);
+                    numbers.Content = grayS;
+
+                    if (redS == grayS)
+                    {
+                        MessageBox.Show("equal value - rool again ", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                        firsrT = 1;
+                        curent.Content = "red";
+                        curent.Foreground = new SolidColorBrush(Colors.Red);
+                        return;
+                    }
+                    else
+                    {
+                        if (redS > grayS)
+                            turn = "red";
+                        MessageBox.Show(turn + " start", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                        firsrT = -1;
+                        curent.Content = turn;
+                        if (turn == "gray")
+                            curent.Foreground = new SolidColorBrush(Colors.Gray);
+                        else
+                            curent.Foreground = new SolidColorBrush(Colors.Red);
+                        numbers.Content = "";
+                        return;
+
+                    }
+                }
+                firsrT++;
+                curent.Content = "gray";
+                curent.Foreground = new SolidColorBrush(Colors.Gray);
+
+            }
+            else
+            {
+                f = reg.Next(1, 7); s = reg.Next(1, 7);
+                numbers.Content = f + "," + s;
+                //   rool.IsEnabled = false;
+                if (f == s) { Count = 8; isCople = true; }
+                ifHaveSteps();
+                if (NoPossibleM)
+                {
+                    //  rool.IsEnabled = true;
+                    MessageBox.Show("There are no possible moves", "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Count = 4; fDice = false; sDice = false; numbers.Content = ""; f = 0; s = 0;
+                    if (turn == "red")
+                    { turn = "gray"; curent.Content = "gray"; curent.Foreground = new SolidColorBrush(Colors.Gray); }
+                    else
+                    { turn = "red"; curent.Content = "red"; curent.Foreground = new SolidColorBrush(Colors.Red); }
+                    NoPossibleM = false;
+                }
+            }
+        }
+        static int WhishCol(RayMeshGeometry3DHitTestResult MeshHitResult)
+        {
+            double Col = 0;
+
+            if (MeshHitResult.PointHit.X > 0.5 || MeshHitResult.PointHit.X < -0.5)
+            {
+                if (MeshHitResult.PointHit.X < 0)
+                {
+                    if (MeshHitResult.PointHit.Z < 0)
+                        Col = 12 + Math.Floor(Math.Abs((6.9 + MeshHitResult.PointHit.X) / 0.9));
+
+                    else
+                        Col = 6 + Math.Floor(1 + Math.Abs((0.62 + MeshHitResult.PointHit.X) / 0.9));
+
+                }
+                else
+                {
+                    if (MeshHitResult.PointHit.Z < 0)
+                        Col = 18 + Math.Floor(1 + (MeshHitResult.PointHit.X - 0.62) / 0.9);
+
+                    else
+                        Col = Math.Floor((6.9 - MeshHitResult.PointHit.X) / 0.9);
+
+                }
+            }
+            return (int)Col;
+        }
+
+        static void MooveY(Model3D model, double to, double bt)
+        {
+
+            DoubleAnimation yAnim = new DoubleAnimation();
+            yAnim.To = to;
+            yAnim.Duration = TimeSpan.FromSeconds(1);
+            yAnim.BeginTime = TimeSpan.FromSeconds(bt);
+
+            ((Transform3DGroup)model.Transform).Children[0].BeginAnimation(TranslateTransform3D.OffsetYProperty, yAnim);
+        }
+
+        static void MooveXZ(Model3D model, double Xto, double Zto)
+        {
+
+            DoubleAnimation xAnim = new DoubleAnimation();
+            DoubleAnimation zAnim = new DoubleAnimation();
+
+            xAnim.To = Xto;
+            xAnim.Duration = TimeSpan.FromSeconds(1.5);
+
+            zAnim.To = Zto;
+            zAnim.Duration = TimeSpan.FromSeconds(1.5);
+
+            ((Transform3DGroup)model.Transform).Children[0].BeginAnimation(TranslateTransform3D.OffsetXProperty, xAnim);
+
+            ((Transform3DGroup)model.Transform).Children[0].BeginAnimation(TranslateTransform3D.OffsetZProperty, zAnim);
+
+        }
+
+        static int LastItem()
+        {
+            int i;
+            if (turn == "red")
+            {
+                i = 6;
+                while (AllOfCol[i] == null)
+                    i--;
+            }
+            else
+            {
+                i = 19;
+                while (AllOfCol[i] == null)
+                    i++;
+            }
+
+            return i;
+        }
+
+        private void Outside_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            bool outs = false;
+            if (isCople && fDice && sDice)
+            { isCople = false; fDice = false; sDice = false; }
+
+            if (isFinish())
+            {
+                if (turn == "red")
+                {
+                    if (!fDice && !sDice)
+                    {
+                        if (col == f || col == LastItem() && f > LastItem())
+                        {
+                            Count--; fDice = true; outs = true;
+                        }
+
+                        else if (col == s || col == LastItem() && s > LastItem())
+                        {
+                            Count--; sDice = true; outs = true;
+                        }
+                        else if (col == s + f)
+                        {
+                            Count -= 3; sDice = true; outs = true;
+                        }
+
+                    }
+
+                    else if (!fDice)
+
+                    {
+                        if (col == f || col == LastItem() && f > LastItem())
+                        {
+                            Count--; fDice = true; outs = true;
+                        }
+                    }
+
+                    else if (!sDice)
+                        if (col == s || col == LastItem() && s > LastItem())
+                        {
+                            Count--; sDice = true; outs = true;
+                        }
+
+                    if (outs)
+                    {
+                        MooveXZ(AllOfCol[prev].GetModel3D(), 15, Zto(1, 0));
+                        OutR[15 - NCountOutSideR] = AllOfCol[col].PopModel3D();
+                        NCountOutSideR--;
+                        if (AllOfCol[col].GetCountOfThisCol() == 0)
+                            AllOfCol[col] = null;
+
+                        if (Count == 0)
+                        {
+                            Count = 4; fDice = false; sDice = false; numbers.Content = ""; f = 0; s = 0;
+                            if (turn == "red")
+                            { turn = "gray"; curent.Content = "gray"; curent.Foreground = new SolidColorBrush(Colors.Gray); }
+                            else
+                            { turn = "red"; curent.Content = "red"; curent.Foreground = new SolidColorBrush(Colors.Red); }
+
+
+                            //   rool.IsEnabled = true;
+
+                        }
+
+                    }
+                }
+
+            }
+            if (NCountOutSideR == 0)
+                WinR();
+
+        }
+        static void WinR()
+        {
+            MessageBox.Show("Red win", "Winer!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+            MooveXZ(RedPlayer[0], -6.85, -2.1);
+            MooveXZ(RedPlayer[1], -6.85 + .5, -1.1);
+            MooveXZ(RedPlayer[2], -6.85 + 1, -0.1);
+            MooveXZ(RedPlayer[3], -6.85 + 1.5, -1.1);
+            MooveXZ(RedPlayer[4], -6.85 + 2, -0.1);
+            MooveXZ(RedPlayer[5], -6.85 + 2.5, -1.1);
+            MooveXZ(RedPlayer[6], -6.85 + 3, -2.1);
+            MooveXZ(RedPlayer[7], -6.85 + 5, -0.1);
+            MooveXZ(RedPlayer[8], -6.85 + 5, -1.1);
+            MooveXZ(RedPlayer[9], -6.85 + 5, -2.1);
+            MooveXZ(RedPlayer[10], -6.85 + 5, -3.5);
+            MooveXZ(RedPlayer[11], -6.85 + 7, -0.1);
+            MooveXZ(RedPlayer[12], -6.85 + 7, -1.1);
+            MooveXZ(RedPlayer[13], -6.85 + 7, -2.1);
+            MooveXZ(RedPlayer[14], -6.85 + 8, -1.1);
+            MooveXZ(RedPlayer[15], -6.85 + 9, -2.1);
+            MooveXZ(RedPlayer[16], -6.85 + 9, -1.1);
+            MooveXZ(RedPlayer[17], -6.85 + 9, -0.1);
+
+            for (int i = 0; i < 15; i++)
+                MooveY(GrayPlayer[i], -0.3, 0);
+
+        }
+
+        static void WinG()
+        {
+            MessageBox.Show("Gray win", "Winer!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+            MooveXZ(GrayPlayer[0], -6.85, -2.1);
+            MooveXZ(GrayPlayer[1], -6.85 + .5, -1.1);
+            MooveXZ(GrayPlayer[2], -6.85 + 1, -0.1);
+            MooveXZ(GrayPlayer[3], -6.85 + 1.5, -1.1);
+            MooveXZ(GrayPlayer[4], -6.85 + 2, -0.1);
+            MooveXZ(GrayPlayer[5], -6.85 + 2.5, -1.1);
+            MooveXZ(GrayPlayer[6], -6.85 + 3, -2.1);
+            MooveXZ(GrayPlayer[7], -6.85 + 5, -0.1);
+            MooveXZ(GrayPlayer[8], -6.85 + 5, -1.1);
+            MooveXZ(GrayPlayer[9], -6.85 + 5, -2.1);
+            MooveXZ(GrayPlayer[10], -6.85 + 5, -3.5);
+            MooveXZ(GrayPlayer[11], -6.85 + 7, -0.1);
+            MooveXZ(GrayPlayer[12], -6.85 + 7, -1.1);
+            MooveXZ(GrayPlayer[13], -6.85 + 7, -2.1);
+            MooveXZ(GrayPlayer[14], -6.85 + 8, -1.1);
+            MooveXZ(GrayPlayer[15], -6.85 + 9, -2.1);
+            MooveXZ(GrayPlayer[16], -6.85 + 9, -1.1);
+            MooveXZ(GrayPlayer[17], -6.85 + 9, -0.1);
+
+            for (int i = 0; i < 15; i++)
+                MooveY(RedPlayer[i], -0.3, 0);
+
+        }
+        static double Xto(int col)
+        {
+            double xto = 0;
+            if (col <= 6)
+                xto = 7.97 - col * 1.12;
+            else if (col >= 19)
+                xto = (col - 18) * 1.12 + 0.13;
+            else if (col > 6 && col < 13)
+                xto = ((col - 6) * 1.12 + 0.13) * -1;
+            else
+                xto = (7.97 - (col - 12) * 1.12) * -1;
+            return xto;
+        }
+
+        private void OutsideG_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            bool outs = false;
+            if (isCople && fDice && sDice)
+            { isCople = false; fDice = false; sDice = false; }
+
+            if (isFinish())
+            {
+                if (turn == "gray")
+                {
+                    if (!fDice && !sDice)
+                    {
+                        if (col == 25 - f || col == LastItem() && 25 - f < LastItem())
+                        {
+                            Count--; fDice = true; outs = true;
+                        }
+
+                        else if (col == 25 - s || col == LastItem() && 25 - s < LastItem())
+                        {
+                            Count--; sDice = true; outs = true;
+                        }
+                        else if (col == 25 - s - f)
+                        {
+                            Count -= 3; sDice = true; outs = true;
+                        }
+
+                    }
+
+                    else if (!fDice)
+
+                    {
+                        if (col == 25 - f || col == LastItem() && 25 - f < LastItem())
+                        {
+                            Count--; fDice = true; outs = true;
+                        }
+                    }
+
+                    else if (!sDice)
+                        if (col == 25 - s || col == LastItem() && 25 - s < LastItem())
+                        {
+                            Count--; sDice = true; outs = true;
+                        }
+
+                    if (outs)
+                    {
+                        MooveXZ(AllOfCol[prev].GetModel3D(), 25, Zto(24, 0));
+                        OutR[15 - NCountOutSideG] = AllOfCol[col].PopModel3D();
+                        NCountOutSideG--;
+                        if (AllOfCol[col].GetCountOfThisCol() == 0)
+                            AllOfCol[col] = null;
+
+                        if (Count == 0)
+                        {
+                            Count = 4; fDice = false; sDice = false; numbers.Content = ""; f = 0; s = 0;
+                            if (turn == "red")
+                            { turn = "gray"; curent.Content = "gray"; curent.Foreground = new SolidColorBrush(Colors.Gray); }
+                            else
+                            { turn = "red"; curent.Content = "red"; curent.Foreground = new SolidColorBrush(Colors.Red); }
+                            //rool.IsEnabled = true;
+
+                        }
+
+                    }
+                }
+
+            }
+            if (NCountOutSideG == 0)
+                WinG();
+        }
+
+        static double Zto(int col, int countofshes)
+        {
+            double zto;
+            if (col > 12)
+                zto = -7.1 + countofshes % 5;
+            else
+                zto = 7.1 - countofshes % 5;
+            return zto;
+        }
+
+        static bool isFinish()
+        {
+            int count = 0;
+            if (turn == "red")
+            {
+                for (int i = 0; i <= 6; i++)
+                    if (AllOfCol[i] != null)
+                        count += AllOfCol[i].GetCountOfThisCol();
+
+                return count == NCountOutSideR;
+            }
+            else
+            {
+                for (int i = 19; i <= 24; i++)
+                    if (AllOfCol[i] != null)
+                        count += AllOfCol[i].GetCountOfThisCol();
+
+                return count == NCountOutSideG;
+            }
+        }
+
+        //static int TopCanvas(int k)
+        //{
+        //    int retval;
+        //    if (k <= 12)
+        //        retval = 375;
+        //    else
+        //        retval = 175;
+
+        //    return retval;
+        //    // 370
+        //}
+        //static int LeftCanvas(int k)
+        //{
+        //    int retval = 290 + 62 * 5;
+        //    if (k <= 6)
+        //    { }
+
+        //    else if (k > 6 && k < 13)
+        //        retval = 290 + 62 * (12 - k);
+        //    else if (k > 13 && k < 19)
+        //        retval = 290 + 62 * k;
+        //    else
+        //    { }
+
+        //    return retval;
+
+        //    //290
+        //    // (12 -24) - 360
+        //}
+
+        //static void Show(Label l, int i, int k)
+        //{
+        //    Canvas.SetTop(l, i);
+        //    Canvas.SetLeft(l, k);
+        //}
+
+        static void EatMgray()
+        {
+            DoubleAnimation yAnim1 = new DoubleAnimation(), xAnim = new DoubleAnimation()
+           , zAnim = new DoubleAnimation();
+
+            yAnim1.To = 0;
+            yAnim1.Duration = TimeSpan.FromSeconds(1.5);
+            xAnim.To = 0;
+            xAnim.Duration = TimeSpan.FromSeconds(1.5);
+            zAnim.To = 0;
+            zAnim.Duration = TimeSpan.FromSeconds(1.5);
+            xAnim.Completed += XAnim_Completed;
+
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleYProperty, yAnim1);
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleXProperty, xAnim);
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleZProperty, zAnim);
+
+            EatGray[countEatG] = AllOfCol[col].PopModel3D();
+        }
+
+        private static void XAnim_Completed(object sender, EventArgs e)
+        {
+            DoubleAnimation scalAnimY = new DoubleAnimation(), scalAnimXZ = new DoubleAnimation();
+            scalAnimY.To = 1.5;
+            scalAnimY.Duration = TimeSpan.FromSeconds(1);
+            scalAnimXZ.To = 0.8;
+            scalAnimXZ.Duration = TimeSpan.FromSeconds(1);
+
+            ((Transform3DGroup)EatGray[countEatG].Transform).Children[0] = new TranslateTransform3D(0.025, 0.1, .75 + countEatG * 1.5);
+            ((Transform3DGroup)EatGray[countEatG].Transform).Children[1] = new ScaleTransform3D(0, 0, 0, 0, 0, 0);
+
+            ((Transform3DGroup)EatGray[countEatG].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleYProperty, scalAnimY);
+            ((Transform3DGroup)EatGray[countEatG].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleXProperty, scalAnimXZ);
+            ((Transform3DGroup)EatGray[countEatG].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleZProperty, scalAnimXZ);
+            countEatG++;
+        }
+
+        static void EatMRed()
+        {
+            DoubleAnimation yAnim = new DoubleAnimation(), xAnim = new DoubleAnimation()
+                , zAnim = new DoubleAnimation();
+
+            yAnim.To = 0;
+            yAnim.Duration = TimeSpan.FromSeconds(1.5);
+            xAnim.To = 0;
+            xAnim.Duration = TimeSpan.FromSeconds(1.5);
+            zAnim.To = 0;
+            zAnim.Duration = TimeSpan.FromSeconds(1.5);
+            zAnim.Completed += ZAnim_Completed;
+
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleYProperty, yAnim);
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleXProperty, xAnim);
+            ((Transform3DGroup)AllOfCol[col].GetModel3D().Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleZProperty, zAnim);
+
+            EatRed[countEatR] = AllOfCol[col].PopModel3D();
+
+        }
+
+        private static void ZAnim_Completed(object sender, EventArgs e)
+        {
+            DoubleAnimation scalAnimY = new DoubleAnimation(), scalAnimXZ = new DoubleAnimation();
+            scalAnimY.To = 1.5;
+            scalAnimY.Duration = TimeSpan.FromSeconds(1);
+            scalAnimXZ.To = 0.8;
+            scalAnimXZ.Duration = TimeSpan.FromSeconds(1);
+
+
+            ((Transform3DGroup)EatRed[countEatR].Transform).Children[0] = new TranslateTransform3D(0.025, 0.1, -.75 - countEatR * 1.5);
+            ((Transform3DGroup)EatRed[countEatR].Transform).Children[1] = new ScaleTransform3D(0, 0, 0, 0, 0, 0);
+
+
+            ((Transform3DGroup)EatRed[countEatR].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleYProperty, scalAnimY);
+            ((Transform3DGroup)EatRed[countEatR].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleXProperty, scalAnimXZ);
+            ((Transform3DGroup)EatRed[countEatR].Transform).Children[1].BeginAnimation(ScaleTransform3D.ScaleZProperty, scalAnimXZ);
+            countEatR++;
+        }
+
+        static void Move(int x, string s)
+        {
+            if (s == "null")
+            {
+                MooveXZ(AllOfCol[prev].GetModel3D(), Xto(col), Zto(col, 0));
+                MooveY(AllOfCol[prev].GetModel3D(), 0, 1.5);
+                AllOfCol[col] = new Col(AllOfCol[prev].PopModel3D(), col, turn); ifMove = true;
+            }
+            else
+            {
+                MooveXZ(AllOfCol[prev].GetModel3D(), Xto(col), Zto(col, AllOfCol[col].GetCountOfThisCol()));
+                MooveY(AllOfCol[prev].GetModel3D(), 0, 1.5);
+                AllOfCol[col].Add(AllOfCol[prev].PopModel3D()); ifMove = true;
+            }
+
+            //  MooveY(md, 0, 1.5);
+            if (AllOfCol[prev].GetCountOfThisCol() == 0)
+                AllOfCol[prev] = null;
+
+            switch (x)
+            {
+                case 1:
+                    fDice = true; Count--;
+                    break;
+                case 2:
+                    sDice = true; Count--;
+                    break;
+                default:
+                    fDice = true; sDice = true; Count -= 3;
+                    break;
+            }
+
+            if (isCople && fDice && sDice)
+            { isCople = false; fDice = false; sDice = false; }
+
+            if (Count != 0 && countEatG == 0 && countEatR == 0)
+                ifHaveSteps();
+
+
+        }
+        static void grayM()
+        {
+            bool con = false;
+            if (AllOfCol[col] == null)
+            {
+                if (prev + f == col && !fDice)
+                {
+                    Move(1, "null");
+                    return;
+                }
+                else if (prev + s == col && !sDice)
+                {
+                    Move(2, "null"); return;
+                }
+                else if (prev + s + f == col && !fDice && !sDice)
+                {
+                    if (AllOfCol[prev + f] != null)
+                    {
+                        if (AllOfCol[prev + f].GetColor() == "gray" ||
+                              (AllOfCol[prev + f].GetColor() == "red" && (AllOfCol[prev + f].GetCountOfThisCol() == 1)))
+                            con = true;
+                    }
+                    else
+                        con = true;
+
+                    if (AllOfCol[prev + s] != null)
+                    {
+                        if (AllOfCol[prev + s].GetColor() == "gray" ||
+                             (AllOfCol[prev + s].GetColor() == "red" && (AllOfCol[prev + s].GetCountOfThisCol() == 1)))
+                            con = true;
+                    }
+                    else
+                        con = true;
+                    if (con)
+                        Move(3, "null"); return;
+                }
+
+            }
+            else
+            {
+                if (prev + f == col)
+                    if (!fDice && AllOfCol[col].GetColor() == "gray" ||
+                        AllOfCol[col].GetColor() == "red" && AllOfCol[col].GetCountOfThisCol() == 1)
+                    {
+                        if (AllOfCol[col].GetColor() == "red")
+                        {
+                            EatMRed();
+                            Move(1, "null"); return;
+                        }
+                        Move(1, ""); return;
+                    }
+                if (prev + s == col)
+                    if (!sDice && AllOfCol[col].GetColor() == "gray" ||
+                          AllOfCol[col].GetColor() == "red" && AllOfCol[col].GetCountOfThisCol() == 1)
+                    {
+                        if (AllOfCol[col].GetColor() == "red")
+                        {
+                            EatMRed();
+                            Move(2, "null"); return;
+                        }
+
+                        Move(2, ""); return;
+                    }
+
+                if (prev + s + f == col)
+                    if (!fDice && !sDice && AllOfCol[col].GetColor() == "gray" ||
+                            AllOfCol[col].GetColor() == "red" && AllOfCol[col].GetCountOfThisCol() == 1)
+
+                    {
+                        if (AllOfCol[prev + f] != null)
+                        {
+                            if (AllOfCol[prev + f].GetColor() == "gray" ||
+                                  (AllOfCol[prev + f].GetColor() == "red" && (AllOfCol[prev + f].GetCountOfThisCol() == 1)))
+                                con = true;
+                        }
+                        else
+                            con = true;
+
+                        if (AllOfCol[prev + s] != null)
+                        {
+                            if (AllOfCol[prev + s].GetColor() == "gray" ||
+                                 (AllOfCol[prev + s].GetColor() == "red" && (AllOfCol[prev + s].GetCountOfThisCol() == 1)))
+                                con = true;
+                        }
+                        else
+                            con = true;
+                        if (con)
+                        {
+                            if (AllOfCol[col].GetColor() == "red")
+                            {
+                                EatMRed();
+                                Move(3, "null"); return;
+                            }
+                            Move(3, ""); return;
+                        }
+                    }
+            }
+        }
+        static void redM()
+        {
+            bool con = false;
+            if (AllOfCol[col] == null)
+            {
+                if (prev - f == col && !fDice)
+                {
+                    Move(1, "null"); return;
+                }
+
+                else if (prev - s == col && !sDice)
+                {
+                    Move(2, "null"); return;
+                }
+
+                else if (prev - s - f == col && !fDice && !sDice)
+                {
+                    if (AllOfCol[prev - f] != null)
+                    {
+                        if (AllOfCol[prev - f].GetColor() == "red" ||
+                           (AllOfCol[prev - f].GetColor() == "gray" && (AllOfCol[prev - f].GetCountOfThisCol() == 1)))
+                            con = true;
+                    }
+                    else
+                        con = true;
+                    if (AllOfCol[prev - s] != null)
+                    {
+                        if (AllOfCol[prev - s].GetColor() == "red" ||
+                            (AllOfCol[prev - s].GetColor() == "gray" && (AllOfCol[prev - s].GetCountOfThisCol() == 1)))
+                            con = true;
+                    }
+                    else
+                        con = true;
+                    if (con)
+                        Move(3, "null"); return;
+                }
+            }
+            else
+            {
+                if (prev - f == col)
+
+                    if (!fDice && AllOfCol[col].GetColor() == "red" ||
+                    AllOfCol[col].GetColor() == "gray" && AllOfCol[col].GetCountOfThisCol() == 1)
+                    {
+                        if (AllOfCol[col].GetColor() == "gray")
+                        {
+                            EatMgray();
+                            Move(1, "null"); return;
+                        }
+
+                        Move(1, ""); return;
+                    }
+
+                if (prev - s == col)
+
+                    if (!sDice && AllOfCol[col].GetColor() == "red" ||
+                    AllOfCol[col].GetColor() == "gray" && AllOfCol[col].GetCountOfThisCol() == 1)
+                    {
+                        if (AllOfCol[col].GetColor() == "gray")
+                        {
+                            EatMgray();
+                            Move(2, "null"); return;
+                        }
+
+                        Move(2, ""); return;
+                    }
+
+
+                if (prev - s - f == col)
+                    if (!fDice && !sDice && AllOfCol[col].GetColor() == "red" ||
+                            AllOfCol[col].GetColor() == "gray" && AllOfCol[col].GetCountOfThisCol() == 1)
+
+                    {
+                        if (AllOfCol[prev - f] != null)
+                        {
+                            if (AllOfCol[prev - f].GetColor() == "red" ||
+                               (AllOfCol[prev - f].GetColor() == "gray" && (AllOfCol[prev - f].GetCountOfThisCol() == 1)))
+                                con = true;
+                        }
+                        else
+                            con = true;
+                        if (AllOfCol[prev - s] != null)
+                        {
+                            if (AllOfCol[prev - s].GetColor() == "red" ||
+                                (AllOfCol[prev - s].GetColor() == "gray" && (AllOfCol[prev - s].GetCountOfThisCol() == 1)))
+                                con = true;
+                        }
+                        else
+                            con = true;
+                        if (con)
+                        {
+                            if (AllOfCol[col].GetColor() == "gray")
+                            {
+                                EatMgray();
+                                Move(3, "null"); return;
+                            }
+
+                            Move(3, ""); return;
+                        }
+                    }
+            }
+
+
+        }
+        static void GrayOut()
+        {
+
+            if (col > 0 && col < 7)
+            {
+                ifMove = false;
+                AllOfCol[0] = new Col(EatGray[countEatG - 1], 0, "gray");
+                grayM();
+                if (ifMove)
+                {
+                    EatGray[countEatG - 1] = null;
+                    countEatG--; NowOEat = true;
+                    if (Count != 0)
+                        ifHaveSteps();
+                }
+            }
+        }
+
+        static void RedOut()
+        {
+            if (col > 18 && col < 25)
+            {
+                ifMove = false;
+                prev = 25;
+                AllOfCol[25] = new Col(EatRed[countEatR - 1], 25, "red");
+                redM();
+                if (ifMove)
+                {
+                    EatRed[countEatR - 1] = null; countEatR--; NowOEat = true;
+                    if (Count != 0)
+                        ifHaveSteps();
+                }
+            }
+
+        }
+
+        static void ifHaveSteps()
+        {
+            bool Iff = true, Ifs = true, Have = true;
+
+            if (turn == "gray")
+            {
+                if (countEatG != 0)
+                {
+                    if (!fDice && !sDice)
+                    {
+                        if (AllOfCol[f] != null)
+                        { Iff = (AllOfCol[f].GetColor() == turn || AllOfCol[f].GetColor() != turn && AllOfCol[f].GetCountOfThisCol() == 1); }
+                        if (AllOfCol[s] != null)
+                        { Ifs = (AllOfCol[s].GetColor() == turn || AllOfCol[s].GetColor() != turn && AllOfCol[s].GetCountOfThisCol() == 1); }
+                        Have = (Iff || Ifs);
+                    }
+
+                    else if (!fDice)
+                    {
+                        if (AllOfCol[f] != null)
+                            Iff = (AllOfCol[f].GetColor() == turn || AllOfCol[f].GetColor() != turn && AllOfCol[f].GetCountOfThisCol() == 1);
+                        Have = Iff;
+                    }
+                    else if (!sDice)
+                        if (AllOfCol[s] != null)
+                        {
+                            Ifs = (AllOfCol[s].GetColor() == turn || AllOfCol[s].GetColor() != turn && AllOfCol[s].GetCountOfThisCol() == 1);
+                            Have = Ifs;
+                        }
+                    NoPossibleM = !Have; return;
+                }
+                else
+                {
+                    for (int i = 1; i < 24; i++)
+                    {
+                        while (AllOfCol[i] == null)
+                        {
+                            if (i < 24)
+                                i++;
+                        }
+                        if (!fDice && !sDice)
+                        {
+
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i + f < 25)
+                                    if (AllOfCol[i + f] != null)
+                                        Iff = (AllOfCol[i + f].GetColor() == turn
+                                        || AllOfCol[i + f].GetColor() != turn && AllOfCol[i + f].GetCountOfThisCol() == 1);
+
+
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i + s < 25)
+                                    if (AllOfCol[i + s] != null)
+                                        Ifs = (AllOfCol[i + s].GetColor() == turn
+                                   || AllOfCol[i + s].GetColor() != turn && AllOfCol[i + s].GetCountOfThisCol() == 1);
+                            Have = (Iff || Ifs);
+                        }
+
+                        else if (!fDice)
+                        {
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i + f < 25)
+                                    if (AllOfCol[i + f] != null)
+                                        Iff = (AllOfCol[i + f].GetColor() == turn
+                                || AllOfCol[i + f].GetColor() != turn && AllOfCol[i + f].GetCountOfThisCol() == 1);
+                            Have = Iff;
+                        }
+                        else if (!sDice)
+                        {
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i + s < 25)
+                                    if (AllOfCol[i + s] != null)
+                                        Ifs = (AllOfCol[i + s].GetColor() == turn
+                                 || AllOfCol[i + s].GetColor() != turn && AllOfCol[i + s].GetCountOfThisCol() == 1);
+                            Have = Ifs;
+                        }
+                        if (Have)
+                            return;
+
+                    }
+
+                }
+                if (NoPossibleM)
+                { Have = false; return; }
+            }
+
+            else
+            {
+                if (countEatR != 0)
+                {
+                    if (!fDice && !sDice)
+                    {
+                        if (AllOfCol[25 - f] != null)
+                        { Iff = (AllOfCol[25 - f].GetColor() == turn || AllOfCol[25 - f].GetColor() != turn && AllOfCol[25 - f].GetCountOfThisCol() == 1); }
+                        if (AllOfCol[25 - s] != null)
+                        { Ifs = (AllOfCol[25 - s].GetColor() == turn || AllOfCol[25 - s].GetColor() != turn && AllOfCol[25 - s].GetCountOfThisCol() == 1); }
+                        Have = (Iff || Ifs);
+                    }
+
+                    else if (!fDice)
+                    {
+                        if (AllOfCol[25 - f] != null)
+                            Iff = (AllOfCol[25 - f].GetColor() == turn || AllOfCol[25 - f].GetColor() != turn && AllOfCol[25 - f].GetCountOfThisCol() == 1);
+                        Have = Iff;
+                    }
+                    else if (!sDice)
+                        if (AllOfCol[25 - s] != null)
+                        {
+                            Ifs = (AllOfCol[25 - s].GetColor() == turn || AllOfCol[25 - s].GetColor() != turn && AllOfCol[25 - s].GetCountOfThisCol() == 1);
+                            Have = Ifs;
+                        }
+                    NoPossibleM = !Have; return;
+                }
+                else
+                {
+                    for (int i = 24; i > 0; i--)
+                    {
+                        while (AllOfCol[i] == null)
+                        {
+                            if (i > 0)
+                                i--;
+                        }
+                        if (!fDice && !sDice)
+                        {
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i - f > 0)
+                                    if (AllOfCol[i - f] != null)
+                                        Iff = (AllOfCol[i - f].GetColor() == turn
+                                        || AllOfCol[i - f].GetColor() != turn && AllOfCol[i - f].GetCountOfThisCol() == 1);
+
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i - s > 0)
+                                    if (AllOfCol[i - s] != null)
+                                        Ifs = (AllOfCol[i - s].GetColor() == turn
+                                   || AllOfCol[i - s].GetColor() != turn && AllOfCol[i - s].GetCountOfThisCol() == 1);
+                            Have = (Iff || Ifs);
+                        }
+
+                        else if (!fDice)
+                        {
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i - f > 0)
+                                    if (AllOfCol[i - f] != null)
+                                        Iff = (AllOfCol[i - f].GetColor() == turn
+                                    || AllOfCol[i - f].GetColor() != turn && AllOfCol[i - f].GetCountOfThisCol() == 1);
+                            Have = Iff;
+                        }
+                        else if (!sDice)
+                        {
+                            if (AllOfCol[i].GetColor() == turn)
+                                if (i - s > 0)
+                                    if (AllOfCol[i - s] != null)
+                                        Ifs = (AllOfCol[i - s].GetColor() == turn
+                 || AllOfCol[i - s].GetColor() != turn && AllOfCol[i - s].GetCountOfThisCol() == 1);
+                            Have = Ifs;
+                        }
+
+                        if (Have)
+                            return;
+                    }
+
+                    if (NoPossibleM)
+                    { Have = false; return; }
+                }
+            }
+        }
+
+
+
+
+    }
+}

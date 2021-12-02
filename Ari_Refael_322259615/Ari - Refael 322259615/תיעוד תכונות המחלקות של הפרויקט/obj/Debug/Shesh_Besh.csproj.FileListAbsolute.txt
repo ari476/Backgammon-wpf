@@ -1,0 +1,117 @@
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csprojAssemblyReference.cache
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+D:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+D:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+D:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.cache
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.CoreCompileInputs.cache
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+D:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+F:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+F:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+F:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.Cache
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.cache
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+G:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+G:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+G:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.Cache
+E:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+E:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+E:\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.Cache
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csprojResolveAssemblyReference.cache
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe.config
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.exe
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.pdb
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.exe
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\bin\Debug\Shesh_Besh.pdb
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\About.g.cs
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.g.cs
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.g.cs
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\App.g.cs
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.cache
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh_MarkupCompile.lref
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\About.baml
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\MainWindow.baml
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\StartGame.baml
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.g.resources
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.Properties.Resources.resources
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csproj.GenerateResource.Cache
+F:\Ari Refael 322259615\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csprojAssemblyReference.cache
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Shesh_Besh.csprojResolveAssemblyReference.cache
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.g.cs
+F:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.baml
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.g.cs
+E:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.baml
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.g.cs
+G:\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.baml
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.g.cs
+C:\Users\USER\Desktop\Shesh_Besh\Shesh_Besh\obj\Debug\Instructions.baml
